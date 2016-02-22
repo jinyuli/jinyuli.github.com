@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: vim tutorial | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/vim-tutorial/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>vim tutorial</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2016/01/31/vim-tutorial-3/">
+  <time datetime="2016-01-30T23:54:01.000Z">
+    Jan 31 2016
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2016/01/31/vim-tutorial-3/">vim tutorial 3</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <h1 id="VIM_u5165_u95E8_uFF08_u4E09_uFF09-__u5750"><a href="#VIM_u5165_u95E8_uFF08_u4E09_uFF09-__u5750" class="headerlink" title="VIM入门（三）- 坐"></a>VIM入门（三）- 坐</h1><blockquote>
+<p>我的手指疼</p>
+<p>为什么？</p>
+<p>昨天练习VIM，使用<strong>hjkl</strong>浏览了一个10w行代码的文件</p>
+<p>…，一个代码文件10w行，还是转行吧</p>
+<p>…</p>
+</blockquote>
+<p>如果你认真的练习了上一篇文章中的命令，就会迫切的希望学会这一篇文章种的命令了，因为这里可以学会跳跃试的浏览了。</p>
+<p>有人会问什么不是一下子把所有的日常命令都介绍一下，还卖关子每次介绍一点。之所以这么做是因为VIM的命令太多，而之所以会有这么多的命令是由于<strong>需求</strong>，有了需求再学习会记得更牢。所以希望一步一步来，而不是一股脑把所有的命令都写出来。</p>
+<p>所以先想想在使用VIM之前，你最想要哪些功能？如果你觉得<em>不使用鼠标</em>就是个噱头，那VIM并不适合你。</p>
+<p>在看了上一篇文章的命令之后，你最需要哪些命令？是不是希望能快速的浏览一个大文件？</p>
+<p>接下来就介绍一下哪些命令可以帮助我们快速的浏览10w行的文件吧。</p>
+<h3 id="u884C_u6570"><a href="#u884C_u6570" class="headerlink" title="行数"></a>行数</h3><p>在介绍命令之前先说一下如何查看文件的行数。毕竟有了行数才能准确知道文件有多大，自己当前的位置在哪。</p>
+<ul>
+<li>Ctrl + g：显示当前的光标位置</li>
+</ul>
+<p>如果你的VIM左侧并没有显示行数，那么在Normal模式下（如果不确定当前在什么模式，可以按按ESC），可以使用以下命令：</p>
+<ul>
+<li>:set number（显示行数）</li>
+<li>:set nonumber (不显示行数)</li>
+</ul>
+<p>那么这样，即使不使用Ctrl + g也可以知道位置了。</p>
+<h3 id="u8DF3_u8F6C"><a href="#u8DF3_u8F6C" class="headerlink" title="跳转"></a>跳转</h3><ul>
+<li>NO. + G：跳转到相应的行，比如100G，就会跳转到第100行</li>
+<li>gg：跳转到第一行</li>
+<li>G：跳转到最后一行</li>
+</ul>
+<p>哈哈，怎么样，有了这几个命令是不是就快多了！</p>
+<h3 id="u7FFB_u9875"><a href="#u7FFB_u9875" class="headerlink" title="翻页"></a>翻页</h3><ul>
+<li>Ctrl + u   向上翻页</li>
+<li>Ctrl + d   向下翻页</li>
+</ul>
+<h3 id="u641C_u7D22"><a href="#u641C_u7D22" class="headerlink" title="搜索"></a>搜索</h3><p>在Normal模式下输入：</p>
+<ul>
+<li>/pattern</li>
+</ul>
+<p>之后就可以使用n（下一个匹配的）和N（上一个匹配的）来遍历所有的匹配pattern的位置了。</p>
+<p>pattern也是支持regex的，不过这个在这里就不详细介绍了，以后会慢慢介绍。</p>
+<p>在搜索的时候会发现VIM已经高亮了匹配的单词，有时这也会比较烦人，怎么取消高亮呢？这时可以在Normal模式下输入：</p>
+<ul>
+<li>:noh</li>
+<li>或者搜索一个不可能出现的单词，比如/asdfaw</li>
+</ul>
+<p><strong>练习，练习，练习</strong></p>
+<p>练习完之后看看你还有哪些迫切需要的功能，看看我下一篇讲的对不对，有需求的也可以留言哦。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>variable arguments in Objective-C | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html在Objective-C中我们经常会用到这样方法：1NSString *str = [NSString stringWithFormat:@&amp;#34;test %@ arguments&amp;#34;, @&amp;#34;variable&amp;#34;];
+在这个方法">
+  
+  <meta name="description" content="http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html在Objective-C中我们经常会用到这样方法：1NSString *str = [NSString stringWithFormat:@&amp;#34;test %@ arguments&amp;#34;, @&amp;#34;variable&amp;#34;];
+在这个方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="variable arguments in Objective-C">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/01/27/variable-arguments-in-Objective-C/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html在Objective-C中我们经常会用到这样方法：1NSString *str = [NSString stringWithFormat:@&amp;#34;test %@ arguments&amp;#34;, @&amp;#34;variable&amp;#34;];
+在这个方法">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="variable arguments in Objective-C">
+<meta name="twitter:description" content="http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html在Objective-C中我们经常会用到这样方法：1NSString *str = [NSString stringWithFormat:@&amp;#34;test %@ arguments&amp;#34;, @&amp;#34;variable&amp;#34;];
+在这个方法">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/27/variable-arguments-in-Objective-C/">
+  <time datetime="2015-01-27T07:59:50.000Z">
+    Jan 27 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">variable arguments in Objective-C</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p><a href="http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html" target="_blank" rel="external">http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html</a><br>在Objective-C中我们经常会用到这样方法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *str = [NSString stringWithFormat:@&#34;test %@ arguments&#34;, @&#34;variable&#34;];</span><br></pre></td></tr></table></figure></p>
+<p>在这个方法里，可以传人一个或多个参数，这就是可变参数。</p>
+<p>在Objective-C中有两种可变参数：</p>
+<ul>
+<li>需要以nil结尾的</li>
+<li>不需要以nil结尾的</li>
+</ul>
+<p>format string就属于不需要nil结尾的。而像NSArray的初始化方法就是需要nil结尾的。为什么会有这种区分呢？因为我们需要知道传入参数的具体数量，虽然在传参的时候可以是任意数量的，但处理这些参数时仍然需要知道具体的数量。像format string这种由于可以使用format来判断需要的参数个数，所以就不需要nil结尾了，否则就得有nil来告诉处理程序–参数传完了。</p>
+<p>下面看一下这两种类型的变参是如何声明的吧：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//without nil&#10;- (void)addContents:(NSString *)obj, ...;&#10;&#10;//with nil&#10;- (void)addContentsWithNil:(NSString *)obj, ... NS_REQUIRE_NIL_TERMINATION;</span><br></pre></td></tr></table></figure></p>
+<p>需要nil的多了一个宏：NS_REQUIRE_NIL_TERMINATION，编译器看到这个宏也会检查这个方法的调用是不是包含了nil结尾。</p>
+<p>而读取可变参数就要用到C中方法了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)addContents:(NSString *)obj, ...&#10;&#123;&#10;    //assume we have got the number of arguments&#10;    int vaCount = 7;&#10;    va_list args;&#10;    va_start(args, obj);&#10;    NSString arg = obj;&#10;    for (int i = 0; i &#60; vaCount; ++i) &#123;&#10;        ...//use the arg&#10;        arg = va_arg(args, NSString *);&#10;    &#125;&#10;    va_end(args);&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>va_list是数据类型，表示了可变参数</li>
+<li>va_start将声明的va_list指向了可变参数</li>
+<li>va_arg获取可变参数中的下一个参数</li>
+<li>va_end释放内存</li>
+</ul>
+<p>如果以nil结尾的可变参数，则在循环的过程中判断获得的参数是不是nil就行了。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/variable-arguments/">variable arguments</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="variable arguments in Objective-C">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

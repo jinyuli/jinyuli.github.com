@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: vim | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/vim/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>vim</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2016/01/29/vim-tutorial-2/">
+  <time datetime="2016-01-29T08:17:30.000Z">
+    Jan 29 2016
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2016/01/29/vim-tutorial-2/">vim tutorial 2</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <h1 id="VIM_u5165_u95E8_uFF08_u4E8C_uFF09-__u51FA_u751F"><a href="#VIM_u5165_u95E8_uFF08_u4E8C_uFF09-__u51FA_u751F" class="headerlink" title="VIM入门（二）- 出生"></a>VIM入门（二）- 出生</h1><p>作为一个编辑器，主要的作用当然就是编辑文档。由于VIM不需要使用鼠标，那么除了<strong>编辑</strong>，还需要一个功能，就是<strong>移动</strong>光标，也就是模拟鼠标，让光标在文本中移动，所以今天会介绍几个移动和编辑的简单命令。</p>
+<h3 id="u6A21_u5F0F"><a href="#u6A21_u5F0F" class="headerlink" title="模式"></a>模式</h3><p>在介绍命令之前，要首先介绍一下模式。</p>
+<p>为什么会引入<strong>模式</strong>？</p>
+<p>因为在使用VIM的过程中，不需要使用鼠标，而在文件中，为了即能移动光标，又能编辑文本，而这两种操作（移动，编辑）都是通过敲击键盘来完成的，那么就需要一种方式来区分这两种状态，于是VIM使用了模式。</p>
+<p>VIM有很多种模式（据说有12种），但那么多模式很容易让初学者迷糊，所以这里只介绍两种：</p>
+<ol>
+<li>Normal mode: 在这种模式下可以移动光标，也可以使用一下命令来修改文本，比如删除，粘贴等。打开VIM的时候，默认既然Normal mode。</li>
+<li>Insert Mode：这是编辑模式，也就是在使用其他编辑器的时候所处的模式，可以大量的输入文本。</li>
+</ol>
+<p>好模式简单介绍完了，但如何在模式之间转换呢？</p>
+<ul>
+<li><p>Normal mode进入Insert mode有很多种方式，两个最简单的：</p>
+<ul>
+<li>i：在当前光标所在位置开始插入内容</li>
+<li>a：在当前光标所在位置之后开始插入内容</li>
+<li>I：在当前光标所在的行首插入内容</li>
+<li>A：在当前光标所在的行尾插入内容</li>
+</ul>
+</li>
+<li><p>Insert mode进入Normal mode：<strong>ESC</strong>，之所以强调ESC，是因为这是一个非常强大的命令，在很多情况下，都可以使用<strong>ESC</strong>来取消当前的操作，并返回Normal mode。</p>
+</li>
+</ul>
+<p><em>所以初学者在使用VIM的时候，如果发现VIM变得莫名其妙，不听指挥，也不知道是处于哪种模式，最好的办法就是按<strong>ESC</strong> 哈</em></p>
+<p><em>另外一个值得注意的地方是，在VIM中很多字母的大小写代表了两个不同的命令，如果发现自己键盘按对了，但反应不对，可以看看CAPS是不是亮了</em></p>
+<p>以下说的命令都是在Normal mode下使用的：</p>
+<h3 id="u79FB_u52A8"><a href="#u79FB_u52A8" class="headerlink" title="移动"></a>移动</h3><ul>
+<li>h 向左</li>
+<li>j 向上</li>
+<li>k 向下</li>
+<li>l 向右</li>
+</ul>
+<p>这就是最基本也是最常用的移动命令，至于为什么会使用这四个键，还有不同的说法，有的说是由于<a href="http://www.catonmat.net/blog/why-vim-uses-hjkl-as-arrow-keys/" target="_blank" rel="external">远古时期的键盘设置</a>的原因，也有说是由于<a href="https://news.ycombinator.com/item?id=3684515" target="_blank" rel="external">ASCII码</a>的原因，不管怎么说，这么设置一定是有原因的。</p>
+<p>可以先在VIM中练习一下这几个命令，看看是在VIM中是如何移动光标的，练到什么程度呢？就像打字一样，当你需要某个字符的时候，手指就会自动移动到相应的字符，练到这种程度就可以了。</p>
+<h3 id="u7F16_u8F91"><a href="#u7F16_u8F91" class="headerlink" title="编辑"></a>编辑</h3><p>除了之前介绍的<strong>iaIA</strong>进入编辑模式外，在Normal mode也有几个命令可以简单的命令可以修改文本：</p>
+<ul>
+<li>x 删除当前光标所在字符</li>
+<li>rN 替换当前光标所在字符为N（N为任意字符）</li>
+</ul>
+<p>好了，有了这些简单的命令，其实就已经满足了一个编辑器的最基本要求，虽然使用起来还不太方便，但其实任何更高级的命令都可以通过这些简单的命令来实现。所以在初学者可以先好好练习这几个命令，当你足够熟悉这些命令之后再去学习高级操作，相信那时对VIM会有更好的理解。</p>
+<p>看完这一节后要做的练习是：</p>
+<ul>
+<li>移动光标</li>
+<li>进入insert mode</li>
+<li>返回normal mode</li>
+<li>删除一个字符</li>
+<li>替换一个字符</li>
+</ul>
+<p><strong>一定要多多练习，否则看多少教程都是没用的。</strong></p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2016/01/28/vim-tutorial-1/">
+  <time datetime="2016-01-27T23:41:24.000Z">
+    Jan 28 2016
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2016/01/28/vim-tutorial-1/">vim tutorial 1</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <h1 id="VIM_u5165_u95E8_28_u4E00_29__u2013__u5B55_u80B2"><a href="#VIM_u5165_u95E8_28_u4E00_29__u2013__u5B55_u80B2" class="headerlink" title="VIM入门(一) – 孕育"></a>VIM入门(一) – 孕育</h1><p>之所以会写这篇文章是为了督促自己学习VIM，所以我现在仍然是菜鸟一枚，希望和各位达人多多交流。同时对于这么好用的编辑器，也有人会问『为什么要用VIM？』，『为什么要记住那么多的命令？』，希望这些文章能从另一个角度帮助大家学习VIM，让更多的人使用VIM。</p>
+<p>网上的VIM教程很多，但基本都只罗列出了命令，而不是循序渐进地告诉学习者如何记住这些命令，这写命令对于初学者来说成了一条拦路虎，刚刚要从GUI编辑器转到VIM，一看还要记住这么多命令，可能就中途放弃了。</p>
+<p>VIM自带的help也很详细，但就像linux man一样是一个使用说明，不能帮助你理解为什么会有这些命令。</p>
+<h3 id="u4E3A_u4EC0_u4E48_u8981_u7528VIM_uFF1F"><a href="#u4E3A_u4EC0_u4E48_u8981_u7528VIM_uFF1F" class="headerlink" title="为什么要用VIM？"></a>为什么要用VIM？</h3><ol>
+<li>作为一个码农，很多时候是在写程序、和shell打交道，希望手能尽量放在键盘上，而不用时不时的摸摸鼠标</li>
+<li>VIM提供了很多方便的命令，减少了很多重复工作</li>
+<li>越来越多的IDE也都提供了VIM模式，说明这确实是一个高效的编辑器</li>
+</ol>
+<h3 id="u8FD8_u8981_u5B66_u4E60_u90A3_u4E48_u591A_u7684_u547D_u4EE4_uFF0C_u6211_u8BB0_u4E0D_u4F4F_u554A"><a href="#u8FD8_u8981_u5B66_u4E60_u90A3_u4E48_u591A_u7684_u547D_u4EE4_uFF0C_u6211_u8BB0_u4E0D_u4F4F_u554A" class="headerlink" title="还要学习那么多的命令，我记不住啊"></a>还要学习那么多的命令，我记不住啊</h3><ol>
+<li>这是一个孰能生巧的工作，需要多多联系</li>
+<li>并不是所有的命令都是需要记住的，VIM中做一个操作可能有很多种方式，只需要学会其中的一种，其余的可以慢慢学</li>
+<li>遵循2/8原则，平时常用的命令也就那么几个，不用急着都学会，像我，现在也就会那么几个，还不熟练。:)</li>
+</ol>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

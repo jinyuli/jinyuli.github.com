@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>Slices in Go | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="今天在使用slice的时候，以为这个是传引用的，就写了下面这个方法：12func useSlice(slice []int32) &amp;#123;&amp;#125;
+以为这样在方法里面的修改是可以影响到外面的，不过实际用过才发现不是这样的。
+具体的可以看Golang的这篇文章：Go Slice: usage and internals以及Array, slices (and strings): The me">
+  
+  <meta name="description" content="今天在使用slice的时候，以为这个是传引用的，就写了下面这个方法：12func useSlice(slice []int32) &amp;#123;&amp;#125;
+以为这样在方法里面的修改是可以影响到外面的，不过实际用过才发现不是这样的。
+具体的可以看Golang的这篇文章：Go Slice: usage and internals以及Array, slices (and strings): The me">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Slices in Go">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/01/17/Slices-in-Go/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="今天在使用slice的时候，以为这个是传引用的，就写了下面这个方法：12func useSlice(slice []int32) &amp;#123;&amp;#125;
+以为这样在方法里面的修改是可以影响到外面的，不过实际用过才发现不是这样的。
+具体的可以看Golang的这篇文章：Go Slice: usage and internals以及Array, slices (and strings): The me">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Slices in Go">
+<meta name="twitter:description" content="今天在使用slice的时候，以为这个是传引用的，就写了下面这个方法：12func useSlice(slice []int32) &amp;#123;&amp;#125;
+以为这样在方法里面的修改是可以影响到外面的，不过实际用过才发现不是这样的。
+具体的可以看Golang的这篇文章：Go Slice: usage and internals以及Array, slices (and strings): The me">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/17/Slices-in-Go/">
+  <time datetime="2015-01-17T09:09:59.000Z">
+    Jan 17 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">Slices in Go</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>今天在使用slice的时候，以为这个是传引用的，就写了下面这个方法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> useSlice(slice []<span class="typename">int32</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以为这样在方法里面的修改是可以影响到外面的，不过实际用过才发现不是这样的。</p>
+<p>具体的可以看Golang的这篇文章：<a href="http://blog.golang.org/go-slices-usage-and-internals" target="_blank" rel="external">Go Slice: usage and internals</a>以及<a href="http://blog.golang.org/slices" target="_blank" rel="external">Array, slices (and strings): The mechanics of append</a></p>
+<p>简单总结一下：</p>
+<ol>
+<li>关于Array：<ul>
+<li>array是固定长度的，长度是其类型的一部分，所以[4]int和[5]int是不同的类型</li>
+<li>array不需要现实初始化，默认所有元素都是0值</li>
+<li>array是值类型的，所以传递过程中会copy所有元素（呃，还以为是引用类型的）</li>
+</ul>
+</li>
+<li>关于slice：<ul>
+<li>slice的0值是nil，len和cap都会返回0</li>
+<li>slice是基于array建立的一个struct</li>
+<li>多个slice可能会指向同一个array，所以修改了一个slice可能会影响另一个</li>
+<li>slice是一种struct，包含了指向数字的指针，所以slice是<strong>值类型</strong></li>
+<li>string是只是一个只读的[]byte，加上一些其他的语法糖</li>
+</ul>
+</li>
+</ol>
+<p>因为slice是值类型，所以如果在方法里只是修改slice的元素，而不是添加新的元素，就没有问题，但如果是添加新元素，就要返回slice，传人的slice参数仍然是旧的struct实例，解决方案有两种：</p>
+<ul>
+<li>传人slice指针<code>func useSlice(slice *[]int32)</code></li>
+<li>返回slice<code>func useSlice(slice []int32) []int32</code></li>
+</ul>
+<p>几个有用的技巧：</p>
+<ul>
+<li>因为slice的0值nil相当于一个长度为0的slice，所以可以直接用append加入元素</li>
+<li>向一个slice添加另一个slice不必循环所有的元素，可以这样<code>sliceA = append(sliceA, sliceB...)</code></li>
+</ul>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/Go/">Go</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/slice/">slice</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="Slices in Go">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

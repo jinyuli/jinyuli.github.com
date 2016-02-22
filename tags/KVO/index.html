@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: KVO | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/KVO/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>KVO</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/27/KVO-in-Objective-C/">
+  <time datetime="2015-01-27T04:25:08.000Z">
+    Jan 27 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/27/KVO-in-Objective-C/">KVO in Objective-C</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>Key-Value-Observing，KVO，提供一种机制，可是使任何一个对象监听另一个对象的状态变化，只要被监听对象实现了NSKeyValueObserving protocol。关于KVO的争议有很多，不过这里只讨论一下如何正确的使用KVO。</p>
+<p>使用KVO包括三个步骤</p>
+<ul>
+<li>订阅：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[objectA addObserver:self&#10;          forKeyPath:@&#34;path&#34;&#10;             options:NSKeyValueObservingOptionNew&#10;             context:NULL];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里使用了self作为observer</p>
+<ul>
+<li><p>响应：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context&#10;&#123;&#10;  if ([keyPath isEqualToString:kSearchBarKVOObserverContentOffset]) &#123;&#10;      [self scrollViewDidScroll:object];&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取消订阅：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[objectA removeObserver:self forKeyPath:@&#34;path&#34;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>接下来看看有什么需要改进的：</p>
+<ol>
+<li><p>在响应函数里，应该调用super，否则super的KVO就不会响应了，所以的改成这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context&#10;&#123;&#10;  if ([keyPath isEqualToString:kSearchBarKVOObserverContentOffset]) &#123;&#10;      [self scrollViewDidScroll:object];&#10;  &#125; else &#123;&#10;      [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是这样的判断并不保险，也许super也订阅了@”path”呢，所以这时应该用context来区分:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;static void * KVOContext = &#38;KVOContext;&#10;&#10;    [objectA addObserver:self&#10;              forKeyPath:@&#34;path&#34;&#10;                 options:NSKeyValueObservingOptionNew&#10;                 context:KVOContext];&#10;&#10;- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context&#10;&#123;&#10;  if (context == KVOContext) &#123;&#10;      if ([keyPath isEqualToString:kSearchBarKVOObserverContentOffset]) &#123;&#10;          [self scrollViewDidScroll:object];&#10;      &#125;&#10;  &#125; else &#123;&#10;      [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里的context其实只是一个标识，所以也就仅仅需要一个地址就可以了，不需要有任何的实际意义。</p>
+<ol>
+<li><p>keyPath用的是NSString，但如果有什么拼写错误就麻烦了，编译器也无法发现，所以最好是使用selector：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString keyPath = NSStringFromSelector(@selector(path));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取消订阅时，如果给的observer没有订阅过，系统就会抛出异常（不是返回error），也就是会crash，所以需要用try catch：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;&#10;    [objectA removeObserver:self forKeyPath:@&#34;path&#34;];&#10;&#125; @catch (NSException * __unused exception) &#123;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>好了，经过一番折腾之后，差不多可以安心使用KVO了，麻烦么？</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

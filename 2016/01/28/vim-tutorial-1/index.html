@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>vim tutorial 1 | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="VIM入门(一) – 孕育之所以会写这篇文章是为了督促自己学习VIM，所以我现在仍然是菜鸟一枚，希望和各位达人多多交流。同时对于这么好用的编辑器，也有人会问『为什么要用VIM？』，『为什么要记住那么多的命令？』，希望这些文章能从另一个角度帮助大家学习VIM，让更多的人使用VIM。
+网上的VIM教程很多，但基本都只罗列出了命令，而不是循序渐进地告诉学习者如何记住这些命令，这写命令对于初学者来说成了一">
+  
+  <meta name="description" content="VIM入门(一) – 孕育之所以会写这篇文章是为了督促自己学习VIM，所以我现在仍然是菜鸟一枚，希望和各位达人多多交流。同时对于这么好用的编辑器，也有人会问『为什么要用VIM？』，『为什么要记住那么多的命令？』，希望这些文章能从另一个角度帮助大家学习VIM，让更多的人使用VIM。
+网上的VIM教程很多，但基本都只罗列出了命令，而不是循序渐进地告诉学习者如何记住这些命令，这写命令对于初学者来说成了一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim tutorial 1">
+<meta property="og:url" content="http://www.mrsnippet.com/2016/01/28/vim-tutorial-1/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="VIM入门(一) – 孕育之所以会写这篇文章是为了督促自己学习VIM，所以我现在仍然是菜鸟一枚，希望和各位达人多多交流。同时对于这么好用的编辑器，也有人会问『为什么要用VIM？』，『为什么要记住那么多的命令？』，希望这些文章能从另一个角度帮助大家学习VIM，让更多的人使用VIM。
+网上的VIM教程很多，但基本都只罗列出了命令，而不是循序渐进地告诉学习者如何记住这些命令，这写命令对于初学者来说成了一">
+<meta property="og:updated_time" content="2016-01-29T22:18:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim tutorial 1">
+<meta name="twitter:description" content="VIM入门(一) – 孕育之所以会写这篇文章是为了督促自己学习VIM，所以我现在仍然是菜鸟一枚，希望和各位达人多多交流。同时对于这么好用的编辑器，也有人会问『为什么要用VIM？』，『为什么要记住那么多的命令？』，希望这些文章能从另一个角度帮助大家学习VIM，让更多的人使用VIM。
+网上的VIM教程很多，但基本都只罗列出了命令，而不是循序渐进地告诉学习者如何记住这些命令，这写命令对于初学者来说成了一">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2016/01/28/vim-tutorial-1/">
+  <time datetime="2016-01-27T23:41:24.000Z">
+    Jan 28 2016
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">vim tutorial 1</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <h1 id="VIM_u5165_u95E8_28_u4E00_29__u2013__u5B55_u80B2"><a href="#VIM_u5165_u95E8_28_u4E00_29__u2013__u5B55_u80B2" class="headerlink" title="VIM入门(一) – 孕育"></a>VIM入门(一) – 孕育</h1><p>之所以会写这篇文章是为了督促自己学习VIM，所以我现在仍然是菜鸟一枚，希望和各位达人多多交流。同时对于这么好用的编辑器，也有人会问『为什么要用VIM？』，『为什么要记住那么多的命令？』，希望这些文章能从另一个角度帮助大家学习VIM，让更多的人使用VIM。</p>
+<p>网上的VIM教程很多，但基本都只罗列出了命令，而不是循序渐进地告诉学习者如何记住这些命令，这写命令对于初学者来说成了一条拦路虎，刚刚要从GUI编辑器转到VIM，一看还要记住这么多命令，可能就中途放弃了。</p>
+<p>VIM自带的help也很详细，但就像linux man一样是一个使用说明，不能帮助你理解为什么会有这些命令。</p>
+<h3 id="u4E3A_u4EC0_u4E48_u8981_u7528VIM_uFF1F"><a href="#u4E3A_u4EC0_u4E48_u8981_u7528VIM_uFF1F" class="headerlink" title="为什么要用VIM？"></a>为什么要用VIM？</h3><ol>
+<li>作为一个码农，很多时候是在写程序、和shell打交道，希望手能尽量放在键盘上，而不用时不时的摸摸鼠标</li>
+<li>VIM提供了很多方便的命令，减少了很多重复工作</li>
+<li>越来越多的IDE也都提供了VIM模式，说明这确实是一个高效的编辑器</li>
+</ol>
+<h3 id="u8FD8_u8981_u5B66_u4E60_u90A3_u4E48_u591A_u7684_u547D_u4EE4_uFF0C_u6211_u8BB0_u4E0D_u4F4F_u554A"><a href="#u8FD8_u8981_u5B66_u4E60_u90A3_u4E48_u591A_u7684_u547D_u4EE4_uFF0C_u6211_u8BB0_u4E0D_u4F4F_u554A" class="headerlink" title="还要学习那么多的命令，我记不住啊"></a>还要学习那么多的命令，我记不住啊</h3><ol>
+<li>这是一个孰能生巧的工作，需要多多联系</li>
+<li>并不是所有的命令都是需要记住的，VIM中做一个操作可能有很多种方式，只需要学会其中的一种，其余的可以慢慢学</li>
+<li>遵循2/8原则，平时常用的命令也就那么几个，不用急着都学会，像我，现在也就会那么几个，还不熟练。:)</li>
+</ol>
+
+    
+  </div>
+  <footer>
+    
+      
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/tutorial/">tutorial</a>, <a class="tags-link" href="/tags/vim/">vim</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="vim tutorial 1">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

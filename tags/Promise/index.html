@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: Promise | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/Promise/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>Promise</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/20/Promise-A-in-javascript/">
+  <time datetime="2015-02-20T03:40:25.000Z">
+    Feb 20 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/20/Promise-A-in-javascript/">Promise/A+ in javascript</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>之前我们讨论了Promise，但如果在网上仔细搜索的话，还会发现<a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a>，仔细看过这个网站的内容就会发现，其实Promise/A+是Promise/A的一个补充，或者说实施细则。应该是在参照CommonJS的Promise/A使用了一段时间之后，对原有规范的细化，比如增加了thenable，对then方法的内部处理提出了更详细的规定。</p>
+<p>另外，Javascript的下一个版本ECMAScript 6也将支持对Promise的原生支持，可以看看<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">Mozilla的实现</a></p>
+<p>其实在实现Promise的时候，除了then，各个lib也会加入一些方便使用的方法，如when，all等。推荐几个比较流行的实现：</p>
+<ul>
+<li><a href="https://github.com/kriskowal/q" target="_blank" rel="external">Q</a></li>
+<li><a href="https://github.com/cujojs/when" target="_blank" rel="external">when</a></li>
+<li><a href="http://jquery.com/" target="_blank" rel="external">jQuery</a></li>
+<li><a href="https://github.com/tildeio/rsvp.js" target="_blank" rel="external">RSVP</a></li>
+</ul>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/17/promise-in-javascript/">
+  <time datetime="2015-02-17T07:18:38.000Z">
+    Feb 17 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/17/promise-in-javascript/">promise in javascript</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>在刚开始写Node.js代码的时候，最头疼的就是缩进了，其实是由于回调导致的，因为Node.js是异步编程的，几乎所有的逻辑都是靠异步调用实现的。这也是和我们常用的同步编程最大的却别。</p>
+<p>后来在使用其他的框架的使用，比如JQeury的ajax，AngularJS的时候也用过其中实现的promise，不过那是还不知道那就是promise，所以对于为什么使用then，done，when，只是照着例子写代码就是了。最近觉得应该看一下什么是promise，所以就找到了promise的源头：<a href="http://wiki.commonjs.org/wiki/Promises/A" target="_blank" rel="external">Promise/A</a>，看了一下其中的定义，终于明白了什么是then，以及应该怎么使用。</p>
+<p>其实在使用其他的promise实现的时候还会遇到when，done之类的方法，这些方法是用来做什么的呢？可以看看这篇关于<a href="http://www.infoq.com/cn/news/2011/09/js-promise/" target="_blank" rel="external">JS Promise</a>的文章。如果有空的话也可以自己现实一个promise，看看和现有的实现<a href="https://github.com/kriskowal/q" target="_blank" rel="external">Q</a>，<a href="https://github.com/tildeio/rsvp.js" target="_blank" rel="external">RSVP</a>，<a href="https://github.com/cujojs/when" target="_blank" rel="external">when</a>有哪些差距。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

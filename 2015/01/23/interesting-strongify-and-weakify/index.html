@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>interesting @strongify and @weakify | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="大家应该都经常使用libextobjc，提供了很多方便的方法和宏，我最常用的是@strongify和@weakify，不过一直很好奇，它是怎么定义出以@开头的宏呢？最近看了一下源码，就我笑了：1#define strongify(...) \&amp;#10;    ext_keywordify \&amp;#10;    _Pragma(&amp;#34;clang diagnostic push&amp;#34;) \&amp;#1">
+  
+  <meta name="description" content="大家应该都经常使用libextobjc，提供了很多方便的方法和宏，我最常用的是@strongify和@weakify，不过一直很好奇，它是怎么定义出以@开头的宏呢？最近看了一下源码，就我笑了：1#define strongify(...) \&amp;#10;    ext_keywordify \&amp;#10;    _Pragma(&amp;#34;clang diagnostic push&amp;#34;) \&amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interesting @strongify and @weakify">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/01/23/interesting-strongify-and-weakify/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="大家应该都经常使用libextobjc，提供了很多方便的方法和宏，我最常用的是@strongify和@weakify，不过一直很好奇，它是怎么定义出以@开头的宏呢？最近看了一下源码，就我笑了：1#define strongify(...) \&amp;#10;    ext_keywordify \&amp;#10;    _Pragma(&amp;#34;clang diagnostic push&amp;#34;) \&amp;#1">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="interesting @strongify and @weakify">
+<meta name="twitter:description" content="大家应该都经常使用libextobjc，提供了很多方便的方法和宏，我最常用的是@strongify和@weakify，不过一直很好奇，它是怎么定义出以@开头的宏呢？最近看了一下源码，就我笑了：1#define strongify(...) \&amp;#10;    ext_keywordify \&amp;#10;    _Pragma(&amp;#34;clang diagnostic push&amp;#34;) \&amp;#1">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/23/interesting-strongify-and-weakify/">
+  <time datetime="2015-01-23T04:43:10.000Z">
+    Jan 23 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">interesting @strongify and @weakify</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>大家应该都经常使用<a href="https://github.com/jspahrsummers/libextobjc" target="_blank" rel="external">libextobjc</a>，提供了很多方便的方法和宏，我最常用的是<code>@strongify</code>和<code>@weakify</code>，不过一直很好奇，它是怎么定义出以<strong>@</strong>开头的宏呢？最近看了一下源码，就我笑了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define strongify(...) \&#10;    ext_keywordify \&#10;    _Pragma(&#34;clang diagnostic push&#34;) \&#10;    _Pragma(&#34;clang diagnostic ignored \&#34;-Wshadow\&#34;&#34;) \&#10;    metamacro_foreach(ext_strongify_,, __VA_ARGS__) \&#10;    _Pragma(&#34;clang diagnostic pop&#34;)</span><br></pre></td></tr></table></figure></p>
+<p>这是strongify的定义，注意，其实是没有<code>@</code>的。那<code>@</code>是做什么用的呢？</p>
+<p>再看看ext_keywordify的定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#if DEBUG&#10;#define ext_keywordify autoreleasepool &#123;&#125;&#10;#else&#10;#define ext_keywordify try &#123;&#125; @catch (...) &#123;&#125;&#10;#endif</span><br></pre></td></tr></table></figure></p>
+<p>哈哈哈哈哈哈，原来最后其实是<code>@autorelease</code>或者<code>@try</code>。</p>
+<p>不过这里我们看到<strong>libextobjc</strong>使用了<code>try catch</code>来包裹内部的代码，这也挺奇怪的，因为在Objective-C里不推荐使用<code>try catch</code>，我们以后再讨论</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/try-catch/">try catch</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="interesting @strongify and @weakify">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

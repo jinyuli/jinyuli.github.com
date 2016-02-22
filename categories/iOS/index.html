@@ -1,0 +1,524 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>分类: iOS | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/categories/iOS/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title category"><span>iOS</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/03/02/reactive/">
+  <time datetime="2015-03-02T06:06:33.000Z">
+    Mar 2 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/03/02/reactive/">reactive</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>最近想仔细看看ReactiveCocoa，其实之前就用过，但是觉得没理解为什么会有这个框架，用得也是稀里糊涂，所以最近开始从文档看起。</p>
+<p>在这个工程的<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="external">首页</a>，看到了这句话：</p>
+<blockquote>
+<p>ReactiveCocoa (RAC) is an Objective-C framework inspired by Functional Reactive Programming. It provides APIs for composing and transforming streams of values.</p>
+</blockquote>
+<p>FRP(Functional Reactive Programming)这是个新名词（对我来说），从名字上来看是和函数式编程和响应式编程相关，但这两个我都不了解，于是又去查资料，看看什么是FRP。没有找他详细的介绍，只在<a href="http://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank" rel="external">wiki</a>上找到了一个简单定义。但还是不理解啊。</p>
+<p>于是继续看它的文档：<a href="https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/DesignGuidelines.md" target="_blank" rel="external">Design Guide</a>，发现了这句话：</p>
+<blockquote>
+<p>This document contains guidelines for projects that want to make use of ReactiveCocoa. The content here is heavily inspired by the Rx Design Guidelines.</p>
+</blockquote>
+<p>似乎看到了希望，从微软的网站下载了<a href="http://blogs.msdn.com/b/rxteam/archive/2010/10/28/rx-design-guidelines.aspx" target="_blank" rel="external">Rx Design Guidelines</a>。一番折腾之后似乎总算找到了源头，但其实还应该看Functional Programming，但最近还没有看FP的计划啊，看来要加快速度了。</p>
+<p>关于Rx（Reactive Extension），可以参考微软的<a href="https://msdn.microsoft.com/en-us/data/gg577609" target="_blank" rel="external">网站</a>，其中对Rx的定义如下：</p>
+<blockquote>
+<p>is a library to compose asynchronous and event-based programs using observable collections and LINQ-style query operators.</p>
+</blockquote>
+<p>由于我们要学习的是Reactive，所以可以暂时忽略其中涉及到的微软的名称，比如LINQ，翻译一下（由于不了解，所以翻译的并不准确）：</p>
+<blockquote>
+<p>Rx作为一个库，通过提供观察、查询数据流的功能，从而可以组成一个异步的、基于事件的程序。</p>
+</blockquote>
+<p>也就是说首先使用Rx写的程序，应该是一个基于事件的，类似与Node.js，同时是异步的，这一点也类似Node.js，我想理解这两点是使用Rx的基础。<br>关于LINQ，可以类比为SQL，提供了对数据集的操作。</p>
+<p>另外一个要提到中是scheduler，在网站上有这样一个公式：</p>
+<blockquote>
+<p>Rx = Observables + LINQ + Schedulers.</p>
+</blockquote>
+<p>scheduler主要是用在多线程中控制数据流的。</p>
+<p>关于Rx，还是需要仔细读读Rx Design Guidelines这个文档吧。</p>
+<p>另外，感觉Rx和Promise很像，在网上找到了<a href="http://rmod.lille.inria.fr/archives/dyla13/dyla13_6_Evaluation_Reactive_Programming_Web_Apps.pdf" target="_blank" rel="external">这篇论文</a>，可以好好看看。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/04/Constants-in-Objective-C/">
+  <time datetime="2015-02-04T03:41:43.000Z">
+    Feb 4 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/04/Constants-in-Objective-C/">Constants in Objective-C</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>在Objective-C中定义常量的方式一般有如下几种：</p>
+<ul>
+<li>#define</li>
+<li>const</li>
+<li>static const</li>
+<li>extern const</li>
+<li>FOUNDATION_EXPORT const</li>
+</ul>
+<p>这几中方式有什么不同呢？我们应该使用那种呢？</p>
+<h2 id="23define"><a href="#23define" class="headerlink" title="#define"></a>#define</h2><p>从C中继承来的，不过已经不再推荐使用了，因为define属于预编译指令，编译器会在生成的代码中替换掉定义的常量，那么其实它定义的不是一个变量，只是一个用来替换的代码块。这就给调试带来了麻烦。另外也有人用define定义函数，甚至紧紧是几行经常重复的代码块，其实这更容易出现问题，如果学过C语言的一般都应该看过define定义函数有哪些坑吧。</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>适合用来定义局部常量，比如在一个代码块里，或者在一个实现文件里（.m文件）</p>
+<h2 id="static_const"><a href="#static_const" class="headerlink" title="static const"></a>static const</h2><p>适合用来定义文件内的常量，通常定义在实现文件里，由于static修饰，只能用在改文件内，外部无法获取。（也可以在方法内或一个代码块内声明static 变量，那么它的作用域就是当前声明所在的域，外部不可见，但是一直存在，不被销毁）</p>
+<h2 id="extern_const"><a href="#extern_const" class="headerlink" title="extern const"></a>extern const</h2><p>如果定义的常量给外部类，文件使用的，则应该使用extern，使得变量（也可以应用于方法）在外部可见。</p>
+<h2 id="FOUNDATION_EXPORT_const"><a href="#FOUNDATION_EXPORT_const" class="headerlink" title="FOUNDATION_EXPORT const"></a>FOUNDATION_EXPORT const</h2><p>如果你的代码是和C/C++混编的，为了使声明的变量在其他文件中可以，应该使用这种方式，其他情况下和extern的作用一样。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/27/variable-arguments-in-Objective-C/">
+  <time datetime="2015-01-27T07:59:50.000Z">
+    Jan 27 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/27/variable-arguments-in-Objective-C/">variable arguments in Objective-C</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p><a href="http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html" target="_blank" rel="external">http://www.cocoawithlove.com/2009/05/variable-argument-lists-in-cocoa.html</a><br>在Objective-C中我们经常会用到这样方法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *str = [NSString stringWithFormat:@&#34;test %@ arguments&#34;, @&#34;variable&#34;];</span><br></pre></td></tr></table></figure></p>
+<p>在这个方法里，可以传人一个或多个参数，这就是可变参数。</p>
+<p>在Objective-C中有两种可变参数：</p>
+<ul>
+<li>需要以nil结尾的</li>
+<li>不需要以nil结尾的</li>
+</ul>
+<p>format string就属于不需要nil结尾的。而像NSArray的初始化方法就是需要nil结尾的。为什么会有这种区分呢？因为我们需要知道传入参数的具体数量，虽然在传参的时候可以是任意数量的，但处理这些参数时仍然需要知道具体的数量。像format string这种由于可以使用format来判断需要的参数个数，所以就不需要nil结尾了，否则就得有nil来告诉处理程序–参数传完了。</p>
+<p>下面看一下这两种类型的变参是如何声明的吧：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//without nil&#10;- (void)addContents:(NSString *)obj, ...;&#10;&#10;//with nil&#10;- (void)addContentsWithNil:(NSString *)obj, ... NS_REQUIRE_NIL_TERMINATION;</span><br></pre></td></tr></table></figure></p>
+<p>需要nil的多了一个宏：NS_REQUIRE_NIL_TERMINATION，编译器看到这个宏也会检查这个方法的调用是不是包含了nil结尾。</p>
+<p>而读取可变参数就要用到C中方法了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)addContents:(NSString *)obj, ...&#10;&#123;&#10;    //assume we have got the number of arguments&#10;    int vaCount = 7;&#10;    va_list args;&#10;    va_start(args, obj);&#10;    NSString arg = obj;&#10;    for (int i = 0; i &#60; vaCount; ++i) &#123;&#10;        ...//use the arg&#10;        arg = va_arg(args, NSString *);&#10;    &#125;&#10;    va_end(args);&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>va_list是数据类型，表示了可变参数</li>
+<li>va_start将声明的va_list指向了可变参数</li>
+<li>va_arg获取可变参数中的下一个参数</li>
+<li>va_end释放内存</li>
+</ul>
+<p>如果以nil结尾的可变参数，则在循环的过程中判断获得的参数是不是nil就行了。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/27/KVO-in-Objective-C/">
+  <time datetime="2015-01-27T04:25:08.000Z">
+    Jan 27 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/27/KVO-in-Objective-C/">KVO in Objective-C</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>Key-Value-Observing，KVO，提供一种机制，可是使任何一个对象监听另一个对象的状态变化，只要被监听对象实现了NSKeyValueObserving protocol。关于KVO的争议有很多，不过这里只讨论一下如何正确的使用KVO。</p>
+<p>使用KVO包括三个步骤</p>
+<ul>
+<li>订阅：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[objectA addObserver:self&#10;          forKeyPath:@&#34;path&#34;&#10;             options:NSKeyValueObservingOptionNew&#10;             context:NULL];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里使用了self作为observer</p>
+<ul>
+<li><p>响应：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context&#10;&#123;&#10;  if ([keyPath isEqualToString:kSearchBarKVOObserverContentOffset]) &#123;&#10;      [self scrollViewDidScroll:object];&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取消订阅：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[objectA removeObserver:self forKeyPath:@&#34;path&#34;];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>接下来看看有什么需要改进的：</p>
+<ol>
+<li><p>在响应函数里，应该调用super，否则super的KVO就不会响应了，所以的改成这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context&#10;&#123;&#10;  if ([keyPath isEqualToString:kSearchBarKVOObserverContentOffset]) &#123;&#10;      [self scrollViewDidScroll:object];&#10;  &#125; else &#123;&#10;      [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是这样的判断并不保险，也许super也订阅了@”path”呢，所以这时应该用context来区分:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;static void * KVOContext = &#38;KVOContext;&#10;&#10;    [objectA addObserver:self&#10;              forKeyPath:@&#34;path&#34;&#10;                 options:NSKeyValueObservingOptionNew&#10;                 context:KVOContext];&#10;&#10;- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context&#10;&#123;&#10;  if (context == KVOContext) &#123;&#10;      if ([keyPath isEqualToString:kSearchBarKVOObserverContentOffset]) &#123;&#10;          [self scrollViewDidScroll:object];&#10;      &#125;&#10;  &#125; else &#123;&#10;      [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里的context其实只是一个标识，所以也就仅仅需要一个地址就可以了，不需要有任何的实际意义。</p>
+<ol>
+<li><p>keyPath用的是NSString，但如果有什么拼写错误就麻烦了，编译器也无法发现，所以最好是使用selector：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString keyPath = NSStringFromSelector(@selector(path));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取消订阅时，如果给的observer没有订阅过，系统就会抛出异常（不是返回error），也就是会crash，所以需要用try catch：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;&#10;    [objectA removeObserver:self forKeyPath:@&#34;path&#34;];&#10;&#125; @catch (NSException * __unused exception) &#123;&#10;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>好了，经过一番折腾之后，差不多可以安心使用KVO了，麻烦么？</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/26/try-catch-in-Objective-c/">
+  <time datetime="2015-01-26T03:53:42.000Z">
+    Jan 26 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/26/try-catch-in-Objective-c/">try-catch in Objective-c</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>就像<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ErrorHandling/ErrorHandling.html" target="_blank" rel="external">Apple官方文档建议的</a>：</p>
+<blockquote>
+<p>You should not use a try-catch block in place of standard programming checks for Objective-C methods. In the case of an NSArray, for example, you should always check the array’s count to determine the number of items before trying to access an object at a given index. The objectAtIndex: method throws an exception if you make an out-of-bounds request so that you can find the bug in your code early in the development cycle—you should avoid throwing exceptions in an app that you ship to users.</p>
+</blockquote>
+<p>我们在现实中也很少见到：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;&#10;&#125;&#10;@catch(NSException *exception) &#123;&#10;&#125;&#10;@finally &#123;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而是使用<code>NSError</code>来处理<em>异常</em><br>不过这种方式会是我们的代码看起来像这样：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSError *error;&#10;open(@&#34;file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;&#10;wirte(@&#34;file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;&#10;close(@file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>错误检查比实际有用的代码还要多。对于这种情况，这里有<a href="https://www.mikeash.com/pyblog/friday-qa-2012-08-24-things-you-never-wanted-to-know-about-c.html" target="_blank" rel="external">一篇文章</a>讲了如何处理C中的error，另外<a href="http://blog.golang.org/errors-are-values" target="_blank" rel="external">Errors are values</a>讨论了如何处理Go中的error。</p>
+<p>那么为什么在Objective-C中很少用try catch呢？</p>
+<ul>
+<li>一个是设计方面的考虑，在Objective-C中认为NSException是不可恢复的错误，抛出NSException只是为了通知程序员，之后就会推出。而NSError是可恢复的错误，需要程序员自己来检查并处理（比如显示给用户）</li>
+<li><p>另一方面是效率的原因（归根结底还是设计的原因？像Java等不就是用try catch来控制的么？），在Apple的一份文档中可以看到:</p>
+<blockquote>
+<p>In 64-bit, the implementation of Objective-C exceptions has been rewritten. The new system provides “zero-cost” try blocks and interoperability with C++.</p>
+<p>On the other hand, actually throwing an exception is much more expensive. For best performance in 64-bit, exceptions should be thrown only in exceptional cases.</p>
+<p>The Cocoa frameworks are generally not exception-safe. Their general pattern is that exceptions are reserved for programmer error only, and the program should quit soon after catching such an exception. Be careful when throwing exceptions across the Cocoa frameworks.</p>
+</blockquote>
+</li>
+</ul>
+<p>基本上这几点话就指出了所有的问题：try catch很耗时，也不是常用的pattern。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/23/interesting-strongify-and-weakify/">
+  <time datetime="2015-01-23T04:43:10.000Z">
+    Jan 23 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/23/interesting-strongify-and-weakify/">interesting @strongify and @weakify</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>大家应该都经常使用<a href="https://github.com/jspahrsummers/libextobjc" target="_blank" rel="external">libextobjc</a>，提供了很多方便的方法和宏，我最常用的是<code>@strongify</code>和<code>@weakify</code>，不过一直很好奇，它是怎么定义出以<strong>@</strong>开头的宏呢？最近看了一下源码，就我笑了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define strongify(...) \&#10;    ext_keywordify \&#10;    _Pragma(&#34;clang diagnostic push&#34;) \&#10;    _Pragma(&#34;clang diagnostic ignored \&#34;-Wshadow\&#34;&#34;) \&#10;    metamacro_foreach(ext_strongify_,, __VA_ARGS__) \&#10;    _Pragma(&#34;clang diagnostic pop&#34;)</span><br></pre></td></tr></table></figure></p>
+<p>这是strongify的定义，注意，其实是没有<code>@</code>的。那<code>@</code>是做什么用的呢？</p>
+<p>再看看ext_keywordify的定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#if DEBUG&#10;#define ext_keywordify autoreleasepool &#123;&#125;&#10;#else&#10;#define ext_keywordify try &#123;&#125; @catch (...) &#123;&#125;&#10;#endif</span><br></pre></td></tr></table></figure></p>
+<p>哈哈哈哈哈哈，原来最后其实是<code>@autorelease</code>或者<code>@try</code>。</p>
+<p>不过这里我们看到<strong>libextobjc</strong>使用了<code>try catch</code>来包裹内部的代码，这也挺奇怪的，因为在Objective-C里不推荐使用<code>try catch</code>，我们以后再讨论</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/22/message-forwarding-in-ObjC/">
+  <time datetime="2015-01-22T09:01:54.000Z">
+    Jan 22 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/22/message-forwarding-in-ObjC/">message forwarding in ObjC</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>最近在实现一个功能时遇到一个问题：<br>有一个类Container包含一个UITableView，需要暴露给外面，delegate也会由调用者设定。但同时我还需要监听这个table view是不是在滚动。由于<code>scrollViewDidScroll:</code>这个方法是包括在UITableViewDelegate里的，最开始的想法是由这个Container类来实现UITableViewDelegate和UITableViewDataSource，Container再将所有的调用转发给外部。但这要求这个Container实现所有的delegate方法。就想是不是可以用<strong>message forwarding</strong>来做，实现了下面的方法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector&#10;&#123;&#10;      //&#31616;&#21333;&#24471;&#36820;&#22238;&#22806;&#37096;&#30340;delegate&#10;        return tableViewDelegate;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是执行的时候发现这些方法根本不会被转发，因为它们都是optional，而optional的方法是不会走到这步的。如果要做必须得重写<code>respondsToSelector:</code>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)respondsToSelector:(SEL)aSelector&#10;&#123;&#10;      &#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是重写这个方法就麻烦了，除了调用<code>super</code>以外，还要把这个Class自己的方法遍历一下，而且以后新加方法就更麻烦了。</p>
+<p>最后就没有使用<strong>message forwarding</strong>。而是用了<strong>KVO</strong>来监听<code>tableView.contentOffset</code>，只要这个值有变化就认为table view在滚动。不过似乎都太推荐KVO啊，我倒是觉得挺好用的，以后再讨论吧。</p>
+<p>关于<strong>message forwarding</strong>以及<strong>runtime</strong>推荐<a href="https://www.mikeash.com" target="_blank" rel="external">mikeash.com</a>的几篇文章：</p>
+<ul>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-03-13-intro-to-the-objective-c-runtime.html" target="_blank" rel="external">Intro to Objective-C Runtime</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-03-20-objective-c-messaging.html" target="_blank" rel="external">Objective-C Messaging</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-03-27-objective-c-message-forwarding.html" target="_blank" rel="external">Objective-C Message Forwarding</a></li>
+</ul>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/22/UITableView-crash-at-after-its-controller-dealloced/">
+  <time datetime="2015-01-22T08:17:20.000Z">
+    Jan 22 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/22/UITableView-crash-at-after-its-controller-dealloced/">UITableView crash at after its controller dealloced</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>今天在调试的时候发现一个奇怪的crash：当<code>UIViewController</code>被回收了之后，其中的<code>UITableView</code>出现了crash。<br>由于开始没有启动XCode的Zombie，所以没查到原因，启用之后发现是UIViewController被设置为<code>UITableView</code>的<code>delegate</code>，并实现了<code>scrollViewDidScroll:</code>方法，crash是就发生在这里，<code>UIViewController</code>已经被释放了，但是仍在试图调用它的<code>scrollViewDidScroll:</code>方法。</p>
+<p>这里有两个比较奇怪的问题：</p>
+<ul>
+<li><code>UITableView.delegate</code>难道不是weak的么？</li>
+<li>为什么<code>UIViewController</code>被释放了之后，<code>UITableView</code>仍然没有被释放？</li>
+</ul>
+<p>对于第一个问题，看来<code>UITableView.delegate</code>确实不是weak的，可能是为了要兼容non ARC的应用，而又不能写两份代码，所以系统的UIKit都是用的MRC(?)</p>
+<p>对于第二个问题，很有可能是因为代码中有其他的<code>block</code>引用了<code>UITableView</code>导致其不能被释放，解决办法就是在<code>dealloc</code>中去掉<code>UITableView</code>的<code>delegate</code>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)dealloc&#10;&#123;&#10;     _tableView.delegate = nil;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外还有一个问题需要注意，如果你也遇到了这个问题，会发现在其被从view结构上删除时，会重新设置<code>contentOffset，</code>这个挺奇怪的<br><img src="http://7u2o9z.com1.z0.glb.clouddn.com/github-blog/uitableview-crash.png" alt="uitableview crash"></p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

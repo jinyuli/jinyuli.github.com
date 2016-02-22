@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>invalid recursive type struct | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="用惯了面向对象编程的语言，认为一切都是指针之后，再切换到Go这种语言真是不习惯啊。今天定义了一个structure：12345type Point struct &amp;#123;    x float32    y float32    next Point&amp;#125;
+然后编译报错：invalid recursive type struct…
+查了一下才明白，因为struct是值类型，如果这样的定义">
+  
+  <meta name="description" content="用惯了面向对象编程的语言，认为一切都是指针之后，再切换到Go这种语言真是不习惯啊。今天定义了一个structure：12345type Point struct &amp;#123;    x float32    y float32    next Point&amp;#125;
+然后编译报错：invalid recursive type struct…
+查了一下才明白，因为struct是值类型，如果这样的定义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="invalid recursive type struct">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/02/11/invalid-recursive-type-struct/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="用惯了面向对象编程的语言，认为一切都是指针之后，再切换到Go这种语言真是不习惯啊。今天定义了一个structure：12345type Point struct &amp;#123;    x float32    y float32    next Point&amp;#125;
+然后编译报错：invalid recursive type struct…
+查了一下才明白，因为struct是值类型，如果这样的定义">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="invalid recursive type struct">
+<meta name="twitter:description" content="用惯了面向对象编程的语言，认为一切都是指针之后，再切换到Go这种语言真是不习惯啊。今天定义了一个structure：12345type Point struct &amp;#123;    x float32    y float32    next Point&amp;#125;
+然后编译报错：invalid recursive type struct…
+查了一下才明白，因为struct是值类型，如果这样的定义">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/11/invalid-recursive-type-struct/">
+  <time datetime="2015-02-11T03:39:38.000Z">
+    Feb 11 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">invalid recursive type struct</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>用惯了面向对象编程的语言，认为一切都是指针之后，再切换到Go这种语言真是不习惯啊。今天定义了一个structure：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">    x <span class="typename">float32</span></span><br><span class="line">    y <span class="typename">float32</span></span><br><span class="line">    next Point</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后编译报错：invalid recursive type struct…</p>
+<p>查了一下才明白，因为struct是值类型，如果这样的定义的话就形成了以无限循环，每一个Point会包含一个Point，所以解决方法就是改成指针：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">    x <span class="typename">float32</span></span><br><span class="line">    y <span class="typename">float32</span></span><br><span class="line">    next *Point</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为指针是固定大小的，也可以是nil，所以这就没问题了。</p>
+<p>嗯小白。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/Go/">Go</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/struct/">struct</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="invalid recursive type struct">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

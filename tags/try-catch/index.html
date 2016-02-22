@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: try catch | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/try-catch/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>try catch</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/26/try-catch-in-Objective-c/">
+  <time datetime="2015-01-26T03:53:42.000Z">
+    Jan 26 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/26/try-catch-in-Objective-c/">try-catch in Objective-c</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>就像<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ErrorHandling/ErrorHandling.html" target="_blank" rel="external">Apple官方文档建议的</a>：</p>
+<blockquote>
+<p>You should not use a try-catch block in place of standard programming checks for Objective-C methods. In the case of an NSArray, for example, you should always check the array’s count to determine the number of items before trying to access an object at a given index. The objectAtIndex: method throws an exception if you make an out-of-bounds request so that you can find the bug in your code early in the development cycle—you should avoid throwing exceptions in an app that you ship to users.</p>
+</blockquote>
+<p>我们在现实中也很少见到：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;&#10;&#125;&#10;@catch(NSException *exception) &#123;&#10;&#125;&#10;@finally &#123;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而是使用<code>NSError</code>来处理<em>异常</em><br>不过这种方式会是我们的代码看起来像这样：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSError *error;&#10;open(@&#34;file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;&#10;wirte(@&#34;file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;&#10;close(@file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>错误检查比实际有用的代码还要多。对于这种情况，这里有<a href="https://www.mikeash.com/pyblog/friday-qa-2012-08-24-things-you-never-wanted-to-know-about-c.html" target="_blank" rel="external">一篇文章</a>讲了如何处理C中的error，另外<a href="http://blog.golang.org/errors-are-values" target="_blank" rel="external">Errors are values</a>讨论了如何处理Go中的error。</p>
+<p>那么为什么在Objective-C中很少用try catch呢？</p>
+<ul>
+<li>一个是设计方面的考虑，在Objective-C中认为NSException是不可恢复的错误，抛出NSException只是为了通知程序员，之后就会推出。而NSError是可恢复的错误，需要程序员自己来检查并处理（比如显示给用户）</li>
+<li><p>另一方面是效率的原因（归根结底还是设计的原因？像Java等不就是用try catch来控制的么？），在Apple的一份文档中可以看到:</p>
+<blockquote>
+<p>In 64-bit, the implementation of Objective-C exceptions has been rewritten. The new system provides “zero-cost” try blocks and interoperability with C++.</p>
+<p>On the other hand, actually throwing an exception is much more expensive. For best performance in 64-bit, exceptions should be thrown only in exceptional cases.</p>
+<p>The Cocoa frameworks are generally not exception-safe. Their general pattern is that exceptions are reserved for programmer error only, and the program should quit soon after catching such an exception. Be careful when throwing exceptions across the Cocoa frameworks.</p>
+</blockquote>
+</li>
+</ul>
+<p>基本上这几点话就指出了所有的问题：try catch很耗时，也不是常用的pattern。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/23/interesting-strongify-and-weakify/">
+  <time datetime="2015-01-23T04:43:10.000Z">
+    Jan 23 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/23/interesting-strongify-and-weakify/">interesting @strongify and @weakify</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>大家应该都经常使用<a href="https://github.com/jspahrsummers/libextobjc" target="_blank" rel="external">libextobjc</a>，提供了很多方便的方法和宏，我最常用的是<code>@strongify</code>和<code>@weakify</code>，不过一直很好奇，它是怎么定义出以<strong>@</strong>开头的宏呢？最近看了一下源码，就我笑了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define strongify(...) \&#10;    ext_keywordify \&#10;    _Pragma(&#34;clang diagnostic push&#34;) \&#10;    _Pragma(&#34;clang diagnostic ignored \&#34;-Wshadow\&#34;&#34;) \&#10;    metamacro_foreach(ext_strongify_,, __VA_ARGS__) \&#10;    _Pragma(&#34;clang diagnostic pop&#34;)</span><br></pre></td></tr></table></figure></p>
+<p>这是strongify的定义，注意，其实是没有<code>@</code>的。那<code>@</code>是做什么用的呢？</p>
+<p>再看看ext_keywordify的定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#if DEBUG&#10;#define ext_keywordify autoreleasepool &#123;&#125;&#10;#else&#10;#define ext_keywordify try &#123;&#125; @catch (...) &#123;&#125;&#10;#endif</span><br></pre></td></tr></table></figure></p>
+<p>哈哈哈哈哈哈，原来最后其实是<code>@autorelease</code>或者<code>@try</code>。</p>
+<p>不过这里我们看到<strong>libextobjc</strong>使用了<code>try catch</code>来包裹内部的代码，这也挺奇怪的，因为在Objective-C里不推荐使用<code>try catch</code>，我们以后再讨论</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

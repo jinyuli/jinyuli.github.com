@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>归档: 2015 | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/archives/2015/page/2/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title"><span>2015</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/26/try-catch-in-Objective-c/">
+  <time datetime="2015-01-26T03:53:42.000Z">
+    Jan 26 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/26/try-catch-in-Objective-c/">try-catch in Objective-c</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>就像<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ErrorHandling/ErrorHandling.html" target="_blank" rel="external">Apple官方文档建议的</a>：</p>
+<blockquote>
+<p>You should not use a try-catch block in place of standard programming checks for Objective-C methods. In the case of an NSArray, for example, you should always check the array’s count to determine the number of items before trying to access an object at a given index. The objectAtIndex: method throws an exception if you make an out-of-bounds request so that you can find the bug in your code early in the development cycle—you should avoid throwing exceptions in an app that you ship to users.</p>
+</blockquote>
+<p>我们在现实中也很少见到：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@try &#123;&#10;&#125;&#10;@catch(NSException *exception) &#123;&#10;&#125;&#10;@finally &#123;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而是使用<code>NSError</code>来处理<em>异常</em><br>不过这种方式会是我们的代码看起来像这样：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSError *error;&#10;open(@&#34;file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;&#10;wirte(@&#34;file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;&#10;close(@file&#34;, &#38;error);&#10;if (!error) &#123;&#10;    return error;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>错误检查比实际有用的代码还要多。对于这种情况，这里有<a href="https://www.mikeash.com/pyblog/friday-qa-2012-08-24-things-you-never-wanted-to-know-about-c.html" target="_blank" rel="external">一篇文章</a>讲了如何处理C中的error，另外<a href="http://blog.golang.org/errors-are-values" target="_blank" rel="external">Errors are values</a>讨论了如何处理Go中的error。</p>
+<p>那么为什么在Objective-C中很少用try catch呢？</p>
+<ul>
+<li>一个是设计方面的考虑，在Objective-C中认为NSException是不可恢复的错误，抛出NSException只是为了通知程序员，之后就会推出。而NSError是可恢复的错误，需要程序员自己来检查并处理（比如显示给用户）</li>
+<li><p>另一方面是效率的原因（归根结底还是设计的原因？像Java等不就是用try catch来控制的么？），在Apple的一份文档中可以看到:</p>
+<blockquote>
+<p>In 64-bit, the implementation of Objective-C exceptions has been rewritten. The new system provides “zero-cost” try blocks and interoperability with C++.</p>
+<p>On the other hand, actually throwing an exception is much more expensive. For best performance in 64-bit, exceptions should be thrown only in exceptional cases.</p>
+<p>The Cocoa frameworks are generally not exception-safe. Their general pattern is that exceptions are reserved for programmer error only, and the program should quit soon after catching such an exception. Be careful when throwing exceptions across the Cocoa frameworks.</p>
+</blockquote>
+</li>
+</ul>
+<p>基本上这几点话就指出了所有的问题：try catch很耗时，也不是常用的pattern。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/23/interesting-strongify-and-weakify/">
+  <time datetime="2015-01-23T04:43:10.000Z">
+    Jan 23 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/23/interesting-strongify-and-weakify/">interesting @strongify and @weakify</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>大家应该都经常使用<a href="https://github.com/jspahrsummers/libextobjc" target="_blank" rel="external">libextobjc</a>，提供了很多方便的方法和宏，我最常用的是<code>@strongify</code>和<code>@weakify</code>，不过一直很好奇，它是怎么定义出以<strong>@</strong>开头的宏呢？最近看了一下源码，就我笑了：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define strongify(...) \&#10;    ext_keywordify \&#10;    _Pragma(&#34;clang diagnostic push&#34;) \&#10;    _Pragma(&#34;clang diagnostic ignored \&#34;-Wshadow\&#34;&#34;) \&#10;    metamacro_foreach(ext_strongify_,, __VA_ARGS__) \&#10;    _Pragma(&#34;clang diagnostic pop&#34;)</span><br></pre></td></tr></table></figure></p>
+<p>这是strongify的定义，注意，其实是没有<code>@</code>的。那<code>@</code>是做什么用的呢？</p>
+<p>再看看ext_keywordify的定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#if DEBUG&#10;#define ext_keywordify autoreleasepool &#123;&#125;&#10;#else&#10;#define ext_keywordify try &#123;&#125; @catch (...) &#123;&#125;&#10;#endif</span><br></pre></td></tr></table></figure></p>
+<p>哈哈哈哈哈哈，原来最后其实是<code>@autorelease</code>或者<code>@try</code>。</p>
+<p>不过这里我们看到<strong>libextobjc</strong>使用了<code>try catch</code>来包裹内部的代码，这也挺奇怪的，因为在Objective-C里不推荐使用<code>try catch</code>，我们以后再讨论</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/22/message-forwarding-in-ObjC/">
+  <time datetime="2015-01-22T09:01:54.000Z">
+    Jan 22 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/22/message-forwarding-in-ObjC/">message forwarding in ObjC</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>最近在实现一个功能时遇到一个问题：<br>有一个类Container包含一个UITableView，需要暴露给外面，delegate也会由调用者设定。但同时我还需要监听这个table view是不是在滚动。由于<code>scrollViewDidScroll:</code>这个方法是包括在UITableViewDelegate里的，最开始的想法是由这个Container类来实现UITableViewDelegate和UITableViewDataSource，Container再将所有的调用转发给外部。但这要求这个Container实现所有的delegate方法。就想是不是可以用<strong>message forwarding</strong>来做，实现了下面的方法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector&#10;&#123;&#10;      //&#31616;&#21333;&#24471;&#36820;&#22238;&#22806;&#37096;&#30340;delegate&#10;        return tableViewDelegate;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是执行的时候发现这些方法根本不会被转发，因为它们都是optional，而optional的方法是不会走到这步的。如果要做必须得重写<code>respondsToSelector:</code>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)respondsToSelector:(SEL)aSelector&#10;&#123;&#10;      &#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是重写这个方法就麻烦了，除了调用<code>super</code>以外，还要把这个Class自己的方法遍历一下，而且以后新加方法就更麻烦了。</p>
+<p>最后就没有使用<strong>message forwarding</strong>。而是用了<strong>KVO</strong>来监听<code>tableView.contentOffset</code>，只要这个值有变化就认为table view在滚动。不过似乎都太推荐KVO啊，我倒是觉得挺好用的，以后再讨论吧。</p>
+<p>关于<strong>message forwarding</strong>以及<strong>runtime</strong>推荐<a href="https://www.mikeash.com" target="_blank" rel="external">mikeash.com</a>的几篇文章：</p>
+<ul>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-03-13-intro-to-the-objective-c-runtime.html" target="_blank" rel="external">Intro to Objective-C Runtime</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-03-20-objective-c-messaging.html" target="_blank" rel="external">Objective-C Messaging</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-03-27-objective-c-message-forwarding.html" target="_blank" rel="external">Objective-C Message Forwarding</a></li>
+</ul>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/22/UITableView-crash-at-after-its-controller-dealloced/">
+  <time datetime="2015-01-22T08:17:20.000Z">
+    Jan 22 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/22/UITableView-crash-at-after-its-controller-dealloced/">UITableView crash at after its controller dealloced</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>今天在调试的时候发现一个奇怪的crash：当<code>UIViewController</code>被回收了之后，其中的<code>UITableView</code>出现了crash。<br>由于开始没有启动XCode的Zombie，所以没查到原因，启用之后发现是UIViewController被设置为<code>UITableView</code>的<code>delegate</code>，并实现了<code>scrollViewDidScroll:</code>方法，crash是就发生在这里，<code>UIViewController</code>已经被释放了，但是仍在试图调用它的<code>scrollViewDidScroll:</code>方法。</p>
+<p>这里有两个比较奇怪的问题：</p>
+<ul>
+<li><code>UITableView.delegate</code>难道不是weak的么？</li>
+<li>为什么<code>UIViewController</code>被释放了之后，<code>UITableView</code>仍然没有被释放？</li>
+</ul>
+<p>对于第一个问题，看来<code>UITableView.delegate</code>确实不是weak的，可能是为了要兼容non ARC的应用，而又不能写两份代码，所以系统的UIKit都是用的MRC(?)</p>
+<p>对于第二个问题，很有可能是因为代码中有其他的<code>block</code>引用了<code>UITableView</code>导致其不能被释放，解决办法就是在<code>dealloc</code>中去掉<code>UITableView</code>的<code>delegate</code>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)dealloc&#10;&#123;&#10;     _tableView.delegate = nil;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外还有一个问题需要注意，如果你也遇到了这个问题，会发现在其被从view结构上删除时，会重新设置<code>contentOffset，</code>这个挺奇怪的<br><img src="http://7u2o9z.com1.z0.glb.clouddn.com/github-blog/uitableview-crash.png" alt="uitableview crash"></p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/17/Slices-in-Go/">
+  <time datetime="2015-01-17T09:09:59.000Z">
+    Jan 17 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/17/Slices-in-Go/">Slices in Go</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>今天在使用slice的时候，以为这个是传引用的，就写了下面这个方法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> useSlice(slice []<span class="typename">int32</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以为这样在方法里面的修改是可以影响到外面的，不过实际用过才发现不是这样的。</p>
+<p>具体的可以看Golang的这篇文章：<a href="http://blog.golang.org/go-slices-usage-and-internals" target="_blank" rel="external">Go Slice: usage and internals</a>以及<a href="http://blog.golang.org/slices" target="_blank" rel="external">Array, slices (and strings): The mechanics of append</a></p>
+<p>简单总结一下：</p>
+<ol>
+<li>关于Array：<ul>
+<li>array是固定长度的，长度是其类型的一部分，所以[4]int和[5]int是不同的类型</li>
+<li>array不需要现实初始化，默认所有元素都是0值</li>
+<li>array是值类型的，所以传递过程中会copy所有元素（呃，还以为是引用类型的）</li>
+</ul>
+</li>
+<li>关于slice：<ul>
+<li>slice的0值是nil，len和cap都会返回0</li>
+<li>slice是基于array建立的一个struct</li>
+<li>多个slice可能会指向同一个array，所以修改了一个slice可能会影响另一个</li>
+<li>slice是一种struct，包含了指向数字的指针，所以slice是<strong>值类型</strong></li>
+<li>string是只是一个只读的[]byte，加上一些其他的语法糖</li>
+</ul>
+</li>
+</ol>
+<p>因为slice是值类型，所以如果在方法里只是修改slice的元素，而不是添加新的元素，就没有问题，但如果是添加新元素，就要返回slice，传人的slice参数仍然是旧的struct实例，解决方案有两种：</p>
+<ul>
+<li>传人slice指针<code>func useSlice(slice *[]int32)</code></li>
+<li>返回slice<code>func useSlice(slice []int32) []int32</code></li>
+</ul>
+<p>几个有用的技巧：</p>
+<ul>
+<li>因为slice的0值nil相当于一个长度为0的slice，所以可以直接用append加入元素</li>
+<li>向一个slice添加另一个slice不必循环所有的元素，可以这样<code>sliceA = append(sliceA, sliceB...)</code></li>
+</ul>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+    <a href="/archives/2015/" class="prev">上一页</a>
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

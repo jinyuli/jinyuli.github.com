@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: Constants | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/Constants/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>Constants</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/04/Constants-in-Objective-C/">
+  <time datetime="2015-02-04T03:41:43.000Z">
+    Feb 4 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/04/Constants-in-Objective-C/">Constants in Objective-C</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>在Objective-C中定义常量的方式一般有如下几种：</p>
+<ul>
+<li>#define</li>
+<li>const</li>
+<li>static const</li>
+<li>extern const</li>
+<li>FOUNDATION_EXPORT const</li>
+</ul>
+<p>这几中方式有什么不同呢？我们应该使用那种呢？</p>
+<h2 id="23define"><a href="#23define" class="headerlink" title="#define"></a>#define</h2><p>从C中继承来的，不过已经不再推荐使用了，因为define属于预编译指令，编译器会在生成的代码中替换掉定义的常量，那么其实它定义的不是一个变量，只是一个用来替换的代码块。这就给调试带来了麻烦。另外也有人用define定义函数，甚至紧紧是几行经常重复的代码块，其实这更容易出现问题，如果学过C语言的一般都应该看过define定义函数有哪些坑吧。</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>适合用来定义局部常量，比如在一个代码块里，或者在一个实现文件里（.m文件）</p>
+<h2 id="static_const"><a href="#static_const" class="headerlink" title="static const"></a>static const</h2><p>适合用来定义文件内的常量，通常定义在实现文件里，由于static修饰，只能用在改文件内，外部无法获取。（也可以在方法内或一个代码块内声明static 变量，那么它的作用域就是当前声明所在的域，外部不可见，但是一直存在，不被销毁）</p>
+<h2 id="extern_const"><a href="#extern_const" class="headerlink" title="extern const"></a>extern const</h2><p>如果定义的常量给外部类，文件使用的，则应该使用extern，使得变量（也可以应用于方法）在外部可见。</p>
+<h2 id="FOUNDATION_EXPORT_const"><a href="#FOUNDATION_EXPORT_const" class="headerlink" title="FOUNDATION_EXPORT const"></a>FOUNDATION_EXPORT const</h2><p>如果你的代码是和C/C++混编的，为了使声明的变量在其他文件中可以，应该使用这种方式，其他情况下和extern的作用一样。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

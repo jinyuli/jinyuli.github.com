@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>reactive | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="最近想仔细看看ReactiveCocoa，其实之前就用过，但是觉得没理解为什么会有这个框架，用得也是稀里糊涂，所以最近开始从文档看起。
+在这个工程的首页，看到了这句话：
+
+ReactiveCocoa (RAC) is an Objective-C framework inspired by Functional Reactive Programming. It provides APIs for">
+  
+  <meta name="description" content="最近想仔细看看ReactiveCocoa，其实之前就用过，但是觉得没理解为什么会有这个框架，用得也是稀里糊涂，所以最近开始从文档看起。
+在这个工程的首页，看到了这句话：
+
+ReactiveCocoa (RAC) is an Objective-C framework inspired by Functional Reactive Programming. It provides APIs for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="reactive">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/03/02/reactive/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="最近想仔细看看ReactiveCocoa，其实之前就用过，但是觉得没理解为什么会有这个框架，用得也是稀里糊涂，所以最近开始从文档看起。
+在这个工程的首页，看到了这句话：
+
+ReactiveCocoa (RAC) is an Objective-C framework inspired by Functional Reactive Programming. It provides APIs for">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="reactive">
+<meta name="twitter:description" content="最近想仔细看看ReactiveCocoa，其实之前就用过，但是觉得没理解为什么会有这个框架，用得也是稀里糊涂，所以最近开始从文档看起。
+在这个工程的首页，看到了这句话：
+
+ReactiveCocoa (RAC) is an Objective-C framework inspired by Functional Reactive Programming. It provides APIs for">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/03/02/reactive/">
+  <time datetime="2015-03-02T06:06:33.000Z">
+    Mar 2 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">reactive</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>最近想仔细看看ReactiveCocoa，其实之前就用过，但是觉得没理解为什么会有这个框架，用得也是稀里糊涂，所以最近开始从文档看起。</p>
+<p>在这个工程的<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="external">首页</a>，看到了这句话：</p>
+<blockquote>
+<p>ReactiveCocoa (RAC) is an Objective-C framework inspired by Functional Reactive Programming. It provides APIs for composing and transforming streams of values.</p>
+</blockquote>
+<p>FRP(Functional Reactive Programming)这是个新名词（对我来说），从名字上来看是和函数式编程和响应式编程相关，但这两个我都不了解，于是又去查资料，看看什么是FRP。没有找他详细的介绍，只在<a href="http://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank" rel="external">wiki</a>上找到了一个简单定义。但还是不理解啊。</p>
+<p>于是继续看它的文档：<a href="https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/DesignGuidelines.md" target="_blank" rel="external">Design Guide</a>，发现了这句话：</p>
+<blockquote>
+<p>This document contains guidelines for projects that want to make use of ReactiveCocoa. The content here is heavily inspired by the Rx Design Guidelines.</p>
+</blockquote>
+<p>似乎看到了希望，从微软的网站下载了<a href="http://blogs.msdn.com/b/rxteam/archive/2010/10/28/rx-design-guidelines.aspx" target="_blank" rel="external">Rx Design Guidelines</a>。一番折腾之后似乎总算找到了源头，但其实还应该看Functional Programming，但最近还没有看FP的计划啊，看来要加快速度了。</p>
+<p>关于Rx（Reactive Extension），可以参考微软的<a href="https://msdn.microsoft.com/en-us/data/gg577609" target="_blank" rel="external">网站</a>，其中对Rx的定义如下：</p>
+<blockquote>
+<p>is a library to compose asynchronous and event-based programs using observable collections and LINQ-style query operators.</p>
+</blockquote>
+<p>由于我们要学习的是Reactive，所以可以暂时忽略其中涉及到的微软的名称，比如LINQ，翻译一下（由于不了解，所以翻译的并不准确）：</p>
+<blockquote>
+<p>Rx作为一个库，通过提供观察、查询数据流的功能，从而可以组成一个异步的、基于事件的程序。</p>
+</blockquote>
+<p>也就是说首先使用Rx写的程序，应该是一个基于事件的，类似与Node.js，同时是异步的，这一点也类似Node.js，我想理解这两点是使用Rx的基础。<br>关于LINQ，可以类比为SQL，提供了对数据集的操作。</p>
+<p>另外一个要提到中是scheduler，在网站上有这样一个公式：</p>
+<blockquote>
+<p>Rx = Observables + LINQ + Schedulers.</p>
+</blockquote>
+<p>scheduler主要是用在多线程中控制数据流的。</p>
+<p>关于Rx，还是需要仔细读读Rx Design Guidelines这个文档吧。</p>
+<p>另外，感觉Rx和Promise很像，在网上找到了<a href="http://rmod.lille.inria.fr/archives/dyla13/dyla13_6_Evaluation_Reactive_Programming_Web_Apps.pdf" target="_blank" rel="external">这篇论文</a>，可以好好看看。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/iOS/">iOS</a>, <a class="categories-link" href="/categories/iOS/Javascript/">Javascript</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/reactive/">reactive</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="reactive">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

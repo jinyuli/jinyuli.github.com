@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>标签: UIScrollView | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/tags/UIScrollView/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title tag"><span>UIScrollView</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/22/UITableView-crash-at-after-its-controller-dealloced/">
+  <time datetime="2015-01-22T08:17:20.000Z">
+    Jan 22 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/01/22/UITableView-crash-at-after-its-controller-dealloced/">UITableView crash at after its controller dealloced</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>今天在调试的时候发现一个奇怪的crash：当<code>UIViewController</code>被回收了之后，其中的<code>UITableView</code>出现了crash。<br>由于开始没有启动XCode的Zombie，所以没查到原因，启用之后发现是UIViewController被设置为<code>UITableView</code>的<code>delegate</code>，并实现了<code>scrollViewDidScroll:</code>方法，crash是就发生在这里，<code>UIViewController</code>已经被释放了，但是仍在试图调用它的<code>scrollViewDidScroll:</code>方法。</p>
+<p>这里有两个比较奇怪的问题：</p>
+<ul>
+<li><code>UITableView.delegate</code>难道不是weak的么？</li>
+<li>为什么<code>UIViewController</code>被释放了之后，<code>UITableView</code>仍然没有被释放？</li>
+</ul>
+<p>对于第一个问题，看来<code>UITableView.delegate</code>确实不是weak的，可能是为了要兼容non ARC的应用，而又不能写两份代码，所以系统的UIKit都是用的MRC(?)</p>
+<p>对于第二个问题，很有可能是因为代码中有其他的<code>block</code>引用了<code>UITableView</code>导致其不能被释放，解决办法就是在<code>dealloc</code>中去掉<code>UITableView</code>的<code>delegate</code>：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)dealloc&#10;&#123;&#10;     _tableView.delegate = nil;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外还有一个问题需要注意，如果你也遇到了这个问题，会发现在其被从view结构上删除时，会重新设置<code>contentOffset，</code>这个挺奇怪的<br><img src="http://7u2o9z.com1.z0.glb.clouddn.com/github-blog/uitableview-crash.png" alt="uitableview crash"></p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

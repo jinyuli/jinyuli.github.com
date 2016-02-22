@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>Questions for interface in Go | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="刚刚开始学习Go，最近看到一篇关于Go interface的文章。虽然挺喜欢GO的，但是文章里说的关于interface的一些优点，想想在其他语言里也基本都有啊，比如：
+
+
+interfaces be safely cast to narrower interfaces (i.e., every io.ReadCloser is also an io.Reader), but they can a">
+  
+  <meta name="description" content="刚刚开始学习Go，最近看到一篇关于Go interface的文章。虽然挺喜欢GO的，但是文章里说的关于interface的一些优点，想想在其他语言里也基本都有啊，比如：
+
+
+interfaces be safely cast to narrower interfaces (i.e., every io.ReadCloser is also an io.Reader), but they can a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Questions for interface in Go">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/01/29/Questions-for-interface-in-Go/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="刚刚开始学习Go，最近看到一篇关于Go interface的文章。虽然挺喜欢GO的，但是文章里说的关于interface的一些优点，想想在其他语言里也基本都有啊，比如：
+
+
+interfaces be safely cast to narrower interfaces (i.e., every io.ReadCloser is also an io.Reader), but they can a">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Questions for interface in Go">
+<meta name="twitter:description" content="刚刚开始学习Go，最近看到一篇关于Go interface的文章。虽然挺喜欢GO的，但是文章里说的关于interface的一些优点，想想在其他语言里也基本都有啊，比如：
+
+
+interfaces be safely cast to narrower interfaces (i.e., every io.ReadCloser is also an io.Reader), but they can a">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/29/Questions-for-interface-in-Go/">
+  <time datetime="2015-01-29T03:49:57.000Z">
+    Jan 29 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">Questions for interface in Go</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>刚刚开始学习<a href="https://golang.org" target="_blank" rel="external">Go</a>，最近看到<a href="http://avtok.com/2014/11/05/interface-upgrades.html" target="_blank" rel="external">一篇关于Go interface的文章</a>。<br>虽然挺喜欢GO的，但是文章里说的关于interface的一些优点，想想在其他语言里也基本都有啊，比如：</p>
+<ul>
+<li><blockquote>
+<p>interfaces be safely cast to narrower interfaces (i.e., every io.ReadCloser is also an io.Reader), but they can also be cast to wider or even unrelated interfaces if their dynamic types support it.<br>在Java也可以随意cast啊，不是么？如果说的是<code>instance.(type)</code>这种cast写法比较方便，那也算不上interface的优势吧？更安全？Java或其他高级语言也可以在cast之前进行类型判断</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>Supporting this kind of copy elision in io.Copy is tricky since we can’t change the signature of either io.Reader.Read or io.Writer.Write without sacrificing generality. Luckily, interface upgrades come to our rescue. The io package defines two auxiliary types, io.WriterTo and io.ReaderFrom which io.Readers and io.Writers (respectively) may optionally implement.<br>真心没看懂啊，不都是cast么？难道这个不用cast？</p>
+</blockquote>
+</li>
+</ul>
+<p>唉，剩下的就不一个一个说了，基本上我觉得其他的常用语言也都能做到，虽然我挺喜欢Go的，但目前主要是觉得确实可以少写很多不必要的东西，比如变量类型啊，分号啊之类的，看来我还在初级阶段，真的没看到这篇文章里的东西和其他语言比有多高级。</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/Go/">Go</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/interface/">interface</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="Questions for interface in Go">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

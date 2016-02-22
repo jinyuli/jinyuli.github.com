@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>归档: 2015/2 | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snippet">
+<meta property="og:url" content="http://www.mrsnippet.com/archives/2015/02/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Snippet">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content">
+
+
+<h2 class="archives-title"><span>2015</span></h2>
+
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/20/Promise-A-in-javascript/">
+  <time datetime="2015-02-20T03:40:25.000Z">
+    Feb 20 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/20/Promise-A-in-javascript/">Promise/A+ in javascript</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>之前我们讨论了Promise，但如果在网上仔细搜索的话，还会发现<a href="https://promisesaplus.com/" target="_blank" rel="external">Promise/A+</a>，仔细看过这个网站的内容就会发现，其实Promise/A+是Promise/A的一个补充，或者说实施细则。应该是在参照CommonJS的Promise/A使用了一段时间之后，对原有规范的细化，比如增加了thenable，对then方法的内部处理提出了更详细的规定。</p>
+<p>另外，Javascript的下一个版本ECMAScript 6也将支持对Promise的原生支持，可以看看<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">Mozilla的实现</a></p>
+<p>其实在实现Promise的时候，除了then，各个lib也会加入一些方便使用的方法，如when，all等。推荐几个比较流行的实现：</p>
+<ul>
+<li><a href="https://github.com/kriskowal/q" target="_blank" rel="external">Q</a></li>
+<li><a href="https://github.com/cujojs/when" target="_blank" rel="external">when</a></li>
+<li><a href="http://jquery.com/" target="_blank" rel="external">jQuery</a></li>
+<li><a href="https://github.com/tildeio/rsvp.js" target="_blank" rel="external">RSVP</a></li>
+</ul>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/17/promise-in-javascript/">
+  <time datetime="2015-02-17T07:18:38.000Z">
+    Feb 17 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/17/promise-in-javascript/">promise in javascript</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>在刚开始写Node.js代码的时候，最头疼的就是缩进了，其实是由于回调导致的，因为Node.js是异步编程的，几乎所有的逻辑都是靠异步调用实现的。这也是和我们常用的同步编程最大的却别。</p>
+<p>后来在使用其他的框架的使用，比如JQeury的ajax，AngularJS的时候也用过其中实现的promise，不过那是还不知道那就是promise，所以对于为什么使用then，done，when，只是照着例子写代码就是了。最近觉得应该看一下什么是promise，所以就找到了promise的源头：<a href="http://wiki.commonjs.org/wiki/Promises/A" target="_blank" rel="external">Promise/A</a>，看了一下其中的定义，终于明白了什么是then，以及应该怎么使用。</p>
+<p>其实在使用其他的promise实现的时候还会遇到when，done之类的方法，这些方法是用来做什么的呢？可以看看这篇关于<a href="http://www.infoq.com/cn/news/2011/09/js-promise/" target="_blank" rel="external">JS Promise</a>的文章。如果有空的话也可以自己现实一个promise，看看和现有的实现<a href="https://github.com/kriskowal/q" target="_blank" rel="external">Q</a>，<a href="https://github.com/tildeio/rsvp.js" target="_blank" rel="external">RSVP</a>，<a href="https://github.com/cujojs/when" target="_blank" rel="external">when</a>有哪些差距。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/11/invalid-recursive-type-struct/">
+  <time datetime="2015-02-11T03:39:38.000Z">
+    Feb 11 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/11/invalid-recursive-type-struct/">invalid recursive type struct</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>用惯了面向对象编程的语言，认为一切都是指针之后，再切换到Go这种语言真是不习惯啊。今天定义了一个structure：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">    x <span class="typename">float32</span></span><br><span class="line">    y <span class="typename">float32</span></span><br><span class="line">    next Point</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后编译报错：invalid recursive type struct…</p>
+<p>查了一下才明白，因为struct是值类型，如果这样的定义的话就形成了以无限循环，每一个Point会包含一个Point，所以解决方法就是改成指针：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Point <span class="keyword">struct</span> &#123;</span><br><span class="line">    x <span class="typename">float32</span></span><br><span class="line">    y <span class="typename">float32</span></span><br><span class="line">    next *Point</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为指针是固定大小的，也可以是nil，所以这就没问题了。</p>
+<p>嗯小白。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+    <article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/02/04/Constants-in-Objective-C/">
+  <time datetime="2015-02-04T03:41:43.000Z">
+    Feb 4 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title"><a href="/2015/02/04/Constants-in-Objective-C/">Constants in Objective-C</a></h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>在Objective-C中定义常量的方式一般有如下几种：</p>
+<ul>
+<li>#define</li>
+<li>const</li>
+<li>static const</li>
+<li>extern const</li>
+<li>FOUNDATION_EXPORT const</li>
+</ul>
+<p>这几中方式有什么不同呢？我们应该使用那种呢？</p>
+<h2 id="23define"><a href="#23define" class="headerlink" title="#define"></a>#define</h2><p>从C中继承来的，不过已经不再推荐使用了，因为define属于预编译指令，编译器会在生成的代码中替换掉定义的常量，那么其实它定义的不是一个变量，只是一个用来替换的代码块。这就给调试带来了麻烦。另外也有人用define定义函数，甚至紧紧是几行经常重复的代码块，其实这更容易出现问题，如果学过C语言的一般都应该看过define定义函数有哪些坑吧。</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>适合用来定义局部常量，比如在一个代码块里，或者在一个实现文件里（.m文件）</p>
+<h2 id="static_const"><a href="#static_const" class="headerlink" title="static const"></a>static const</h2><p>适合用来定义文件内的常量，通常定义在实现文件里，由于static修饰，只能用在改文件内，外部无法获取。（也可以在方法内或一个代码块内声明static 变量，那么它的作用域就是当前声明所在的域，外部不可见，但是一直存在，不被销毁）</p>
+<h2 id="extern_const"><a href="#extern_const" class="headerlink" title="extern const"></a>extern const</h2><p>如果定义的常量给外部类，文件使用的，则应该使用extern，使得变量（也可以应用于方法）在外部可见。</p>
+<h2 id="FOUNDATION_EXPORT_const"><a href="#FOUNDATION_EXPORT_const" class="headerlink" title="FOUNDATION_EXPORT const"></a>FOUNDATION_EXPORT const</h2><p>如果你的代码是和C/C++混编的，为了使声明的变量在其他文件中可以，应该使用这种方式，其他情况下和extern的作用一样。</p>
+
+    
+  </div>
+  <footer class="end-sep">
+    
+      
+      
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>

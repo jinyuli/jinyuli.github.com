@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>interface in Go | Snippet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <meta name="author" content="Jinyu Li">
+  
+  
+    <meta name="description" content="最近看了Go Data Structure，对interface了解多了一点。下面简单翻译一下重点：
+Go中的interface既做到了隐式继承，又做到了编译期检查，前者是静态语言做不到的，而后者是很多动态语言做不到了，所以可以看到Go在编程语言的位置，位于中间。
+interface value是有一个包含两个字段的structure表示的，第一个字段是指向了interface的类型信息，包括方法">
+  
+  <meta name="description" content="最近看了Go Data Structure，对interface了解多了一点。下面简单翻译一下重点：
+Go中的interface既做到了隐式继承，又做到了编译期检查，前者是静态语言做不到的，而后者是很多动态语言做不到了，所以可以看到Go在编程语言的位置，位于中间。
+interface value是有一个包含两个字段的structure表示的，第一个字段是指向了interface的类型信息，包括方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="interface in Go">
+<meta property="og:url" content="http://www.mrsnippet.com/2015/01/27/interface-in-Go/index.html">
+<meta property="og:site_name" content="Snippet">
+<meta property="og:description" content="最近看了Go Data Structure，对interface了解多了一点。下面简单翻译一下重点：
+Go中的interface既做到了隐式继承，又做到了编译期检查，前者是静态语言做不到的，而后者是很多动态语言做不到了，所以可以看到Go在编程语言的位置，位于中间。
+interface value是有一个包含两个字段的structure表示的，第一个字段是指向了interface的类型信息，包括方法">
+<meta property="og:image" content="http://research.swtch.com/gointer2.png">
+<meta property="og:updated_time" content="2016-01-27T15:53:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="interface in Go">
+<meta name="twitter:description" content="最近看了Go Data Structure，对interface了解多了一点。下面简单翻译一下重点：
+Go中的interface既做到了隐式继承，又做到了编译期检查，前者是静态语言做不到的，而后者是很多动态语言做不到了，所以可以看到Go在编程语言的位置，位于中间。
+interface value是有一个包含两个字段的structure表示的，第一个字段是指向了interface的类型信息，包括方法">
+  
+    <link rel="alternate" href="/atom.xml" title="Snippet" type="application/atom+xml">
+  
+  
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42937397-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <header id="header">
+  <div class="title">
+    <h1><a href="/">Snippet</a></h1>
+    <p><a href="/"></a></p>
+  </div>
+  <nav class="nav">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+      
+        <li><a href="/atom.xml">RSS</a></li>
+      
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+  <div class="clearfix"></div>
+</header>
+    <div class="content"><article class="post">
+  <header>
+    
+      <div class="icon"></div>
+      <a href="/2015/01/27/interface-in-Go/">
+  <time datetime="2015-01-27T04:25:44.000Z">
+    Jan 27 2015
+  </time>
+</a>
+    
+    
+  
+    <h1 class="title">interface in Go</h1>
+  
+
+  </header>
+  
+  <div class="entry">
+    
+      <p>最近看了<a href="http://research.swtch.com/interfaces" target="_blank" rel="external">Go Data Structure</a>，对interface了解多了一点。下面简单翻译一下重点：</p>
+<p>Go中的interface既做到了隐式继承，又做到了编译期检查，前者是静态语言做不到的，而后者是很多动态语言做不到了，所以可以看到Go在编程语言的位置，位于中间。</p>
+<p>interface value是有一个包含两个字段的structure表示的，第一个字段是指向了interface的类型信息，包括方法等，第二个字段指向了真实的数据。<em>注意：</em>原文中使用word表示字段，所以这个代表interface value的structure可能也不是我们理解的严格意义上的structure，而用word表示的应该是计算机中的一个字，如果是32位的机器，word表示的就是32位，如果是64位的机器，word表示的就是64位。</p>
+<p>有如下代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Stringer <span class="keyword">interface</span> &#123;</span><br><span class="line">        String() <span class="typename">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Binary <span class="typename">uint64</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> (i Binary) String() <span class="typename">string</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> strconv.Uitob64(i.Get(), <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> (i Binary) Get() <span class="typename">uint64</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="typename">uint64</span>(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>做如下赋值：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s Stringer = b</span><br></pre></td></tr></table></figure></p>
+<p>那么内存中是这样的(借用原文的图了:))：<br><img src="http://research.swtch.com/gointer2.png" alt="structure in memory"></p>
+<p>图中的itable表示是interface的itable，而不是实际类型的itable。在这个例子中，itable表示的是Stringer的itable，而不是Binary的。</p>
+<blockquote>
+<p>(由于interface仅相当于一个类型声明，而没有实例变量等内容，所以这个itable应该是全局唯一的，不过这也和方法查找有关，如果interface的方法与实际类型的方法之间对应关系是和这个itable相关的，那么就不能是全局唯一的了。否则如果多个类型实现了Stringer interface，就没法保持之前建立的对应关系了。)忘掉这段吧，因为itable里有指向实际类型的指针（指向Binary）</p>
+</blockquote>
+<p>另外一点要注意的是itable中的方法是(* Binary).String()，而不是Binary.String()。因为第二个字段data保持的是指向实际类型（Binary）的指针，也就是说可以认为data中保持的是* Binary。（<em>这是不是就是指向某个类型的指针会包含该类型的所有方法的原因呢？</em>，如果是这样的话，其实调用的时候可以用(*data).String()，而不是直接data.String()，嗯，不过等到做内存优化的时候就有问题了，优化过之后data保持的可能就是实际的值，而不是指针了）</p>
+<p>以前在看到下面这样的代码时都会疑惑：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> doSomething(a <span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">    <span class="keyword">if</span> a != <span class="constant">nil</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果传入的a是一个primitive类型怎么办？为什么可以用nil来判断0值呢？<br>其实不管传入的是什么类型，最后都会转换位interface</p>
+<p>最后，有句话没看懂啊，求教：</p>
+<blockquote>
+<p>Because Go has the hint of static typing to go along with the dynamic method lookups, it can move the lookups back from the call sites to the point when the value is stored in the interface.</p>
+</blockquote>
+<p>最后的最后，看起来Go的runtime和Objective-C的挺像的（<em>看起来</em>）那是不是就像Objective-C一样，使用了类似@selector的方式做方法查找，而导致不能做方法重载呢？</p>
+
+    
+  </div>
+  <footer>
+    
+      
+  <div class="categories">
+    <a class="categories-link" href="/categories/Go/">Go</a>
+  </div>
+
+      
+  <div class="tags">
+    <a class="tags-link" href="/tags/interface/">interface</a>
+  </div>
+
+    
+    <div class="clearfix"></div>
+  </footer>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">评论</h1>
+  <div class="ds-thread" data-title="interface in Go">
+  </div>
+</section>
+</div>
+  </div>
+  <footer id="footer"><div class="copyright">
+  
+  &copy; 2016 <a href="/">Jinyu Li</a>
+  
+</div>
+<div class="theme-copyright">
+  Theme by <a href="https://github.com/orderedlist" target="_blank">orderedlist</a>
+   | 
+  Redesign by <a href="http://heroicyang.com/" target="_blank">Heroic Yang</a>
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="/js/scale.fix.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'mrsnippet' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox();
+  })(jQuery);
+</script>
+
+</body>
+</html>
